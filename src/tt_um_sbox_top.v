@@ -1,4 +1,4 @@
-module tt_um_sbox_top (
+module sbox_top_internal (
     input        clk,
     input        ena,
     input        rst_n,
