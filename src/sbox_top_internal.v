@@ -1,4 +1,4 @@
-module tt_um_sbox_top (
+module sbox_top_internal (
     input        clk,
     input  [1:0] mode,
     input  [7:0] data_i,
