@@ -1,31 +1,32 @@
-module sbox_top_internal (
-    input        clk,
-    input        ena,
-    input        rst_n,
-    input  [1:0] mode,
-    input  [7:0] data_i,
-    output reg [7:0] data_o
+module tt_um_sbox_top (
+    input  wire [7:0] ui_in,
+    output wire [7:0] uo_out,
+    input  wire [7:0] uio_in,
+    output wire [7:0] uio_out,
+    output wire [7:0] uio_oe,
+    input  wire       clk,
+    input  wire       rst_n
 );
 
-    // Internal wires for each S-box output
-    wire [7:0] s0_out, s1_out, s2_out, s3_out;
+    wire [7:0] data_o;
+    wire [1:0] mode;
 
-    // Instantiate S-boxes
-    sbox_com u0 (.data_i(data_i), .data_o(s0_out));
-    isbox_com u1 (.data_i(data_i), .data_o(s1_out));
-    sbox u2 (.data_i(data_i), .data_o(s2_out));
-    isbox u3 (.data_i(data_i), .data_o(s3_out));
+    // Map inputs
+    assign mode = uio_in[1:0];
 
-    // Output selection (ONLY ONE DRIVER for data_o)
-    always @(posedge clk) begin
-        case (mode)
-            2'b00: data_o <= s0_out;
-            2'b01: data_o <= s1_out;
-            2'b10: data_o <= s2_out;
-            2'b11: data_o <= s3_out;
-        endcase
-    end
+    // No bidirectional outputs used
+    assign uio_out = 8'b0;
+    assign uio_oe  = 8'b0;
+
+    // Your original logic (unchanged behavior)
+    sbox_top_internal core (
+        .clk(clk),
+        .rst_n(rst_n),
+        .mode(mode),
+        .data_i(ui_in),
+        .data_o(data_o)
+    );
+
+    assign uo_out = data_o;
 
 endmodule
-
-
