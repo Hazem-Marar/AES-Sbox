@@ -5,7 +5,8 @@ module tt_um_sbox_top (
     output wire [7:0] uio_out,
     output wire [7:0] uio_oe,
     input  wire       clk,
-    input  wire       rst_n
+    input  wire       rst_n,
+    input             ena
 );
 
     wire [7:0] data_o;
