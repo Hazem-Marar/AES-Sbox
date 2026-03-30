@@ -12,7 +12,7 @@ async def test_sbox(dut):
 
     # Example input
     dut.ui_in.value = 0x53
-    dut.uio_in.value = 0b00  # mode
+    dut.uio_in.value = 0b10  # mode
 
     await RisingEdge(dut.clk)
 
