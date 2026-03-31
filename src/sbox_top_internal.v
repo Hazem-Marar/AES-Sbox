@@ -1,6 +1,5 @@
 module sbox_top_internal (
     input        clk,
-    input        rst_n,
     input  [1:0] mode,
     input  [7:0] data_i,
     output reg [7:0] data_o
@@ -16,12 +15,13 @@ module sbox_top_internal (
     isbox u3 (.data_i(data_i), .data_o(s3_out));
 
     // Output selection (ONLY ONE DRIVER for data_o)
-    always @(posedge clk) begin
+    always @(*) begin
         case (mode)
-            2'b00: data_o <= s0_out;
-            2'b01: data_o <= s1_out;
-            2'b10: data_o <= s2_out;
-            2'b11: data_o <= s3_out;
+            2'b00: data_o = s0_out;
+            2'b01: data_o = s1_out;
+            2'b10: data_o = s2_out;
+            2'b11: data_o = s3_out;
+	    default: data_o = 8'h00;
         endcase
     end
 
