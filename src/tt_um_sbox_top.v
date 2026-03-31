@@ -22,7 +22,6 @@ module tt_um_sbox_top (
     // Your original logic (unchanged behavior)
     sbox_top_internal core (
         .clk(clk),
-        .rst_n(rst_n),
         .mode(mode),
         .data_i(ui_in),
         .data_o(data_o)
