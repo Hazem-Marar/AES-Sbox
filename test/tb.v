@@ -1,19 +1,15 @@
 `default_nettype none
 `timescale 1ns / 1ps
 
-/* This testbench just instantiates the module and makes some convenient wires
-   that can be driven / tested by the cocotb test.py.
-*/
 module tb ();
 
-  // Dump the signals to a FST file. You can view it with gtkwave or surfer.
+  // Dump waves
   initial begin
     $dumpfile("tb.fst");
     $dumpvars(0, tb);
-    #1;
   end
 
-  // Wire up the inputs and outputs:
+  // Signals
   reg clk;
   reg rst_n;
   reg ena;
@@ -23,8 +19,7 @@ module tb ();
   wire [7:0] uio_out;
   wire [7:0] uio_oe;
 
-
-
+  // DUT
   tt_um_top dut (
       .ui_in(ui_in),
       .uio_in(uio_in),
@@ -36,7 +31,16 @@ module tb ();
       .rst_n(rst_n)
   );
 
-endmodule
+  // ✅ Initialize signals
+  initial begin
+    clk = 0;
+    rst_n = 0;
+    ena = 0;
+    ui_in = 0;
+    uio_in = 0;
+  end
 
-   
+  // ✅ Clock generator
+  always #5 clk = ~clk;
+
 endmodule
